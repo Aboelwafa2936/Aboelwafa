@@ -1,0 +1,12 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+/* Custom class to style date */
+.timeline-element .vertical-timeline-element-date {
+    margin: 0px 20px; /* Add space between the icon and the date */
+    font-size: 14px;
+    color: #6b7280; /* Optional: To match the color with other elements */
+  }
+  
