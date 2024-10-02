@@ -6,13 +6,18 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 
 export default function Navbar() {
-  const [activeSection, setActiveSection] = useState<string>("Home");
+  const [activeSection, setActiveSection] = useState<string | null>(null);
+  const [isLinkClick, setIsLinkClick] = useState(false);
 
   useEffect(() => {
     // Ensure we're in the browser environment
     if (typeof window !== "undefined") {
-      // Check if we're at the top of the page on initial load
+      let timeoutId: NodeJS.Timeout | null = null;
+
       const updateActiveSection = () => {
+        // Prevent updating during link click
+        if (isLinkClick) return;
+
         if (window.scrollY === 0) {
           setActiveSection("Home");
           localStorage.setItem("activeSection", "Home");
@@ -30,23 +35,36 @@ export default function Navbar() {
         }
       };
 
+      const handleScroll = () => {
+        if (timeoutId) clearTimeout(timeoutId);
+
+        // Debounce the scroll event
+        timeoutId = setTimeout(() => {
+          updateActiveSection();
+          setIsLinkClick(false); // Allow the scroll handler after a link click is completed
+        }, 100);
+      };
+
       // Initialize active section on mount
       updateActiveSection();
 
       // Add scroll event listener
-      window.addEventListener("scroll", updateActiveSection);
+      window.addEventListener("scroll", handleScroll);
 
       // Cleanup on unmount
       return () => {
-        window.removeEventListener("scroll", updateActiveSection);
+        window.removeEventListener("scroll", handleScroll);
+        if (timeoutId) clearTimeout(timeoutId);
       };
     }
-  }, []);
+  }, [isLinkClick, links]);
 
   const handleLinkClick = (section: string) => {
     setActiveSection(section);
-    localStorage.setItem("activeSection", section); // Save to localStorage
+    setIsLinkClick(true); // Disable scroll detection temporarily
+    localStorage.setItem("activeSection", section);
   };
+
 
   return (
     <>
