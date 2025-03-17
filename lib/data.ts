@@ -44,19 +44,12 @@ interface experience {
 
 const experiencesData:experience[] = [
     {
-      title: "Internship at Code Alpha",
-      location: "Online", 
-      description:
-        "Currently participating in an internship at Code Alpha, where I'm gaining hands-on experience in frontend development, working with HTML, CSS, JavaScript, and React. I'm involved in real-world projects, improving my problem-solving skills and understanding of responsive design.",
-      icon: React.createElement(FaCode), 
-      date: "2024 - Present", 
-    },
-    {
-      title: "Upcoming Instructor at Smart Family",
+      title: "Instructor at Smart Family",
       location: "Sohag",
       description:
-        "I am set to begin my role as an instructor at Smart Family, where I will be teaching HTML and CSS. In this position, I will be responsible for preparing lesson materials, delivering lectures, and guiding students through hands-on projects to build their skills in web development.",
-      icon: React.createElement(FaChalkboardTeacher), // Or another appropriate icon
+        `Conducted hands-on training sessions focused on HTML and CSS, helping students build foundational web development skills. 
+        Assisted in developing and delivering course materials, ensuring students gained practical experience through real-world projects.`,
+      icon: React.createElement(FaChalkboardTeacher),
       date: "2024 - Present",
   }
  ] as const;
